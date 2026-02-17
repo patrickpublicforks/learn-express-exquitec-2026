@@ -1,3 +1,4 @@
+import { generateJwtToken } from "../config/jwt.config.js";
 import { User } from "../services/index.js";
 import { comparePassword, hashPassword } from "../utils/password-hash.js";
 
@@ -14,9 +15,11 @@ export async  function loginController(req, res) {
     return res.status(400).json({ message: "invalid email/password" });
   }
 
+  const token = generateJwtToken(user.id)
+
   res.json({
     message: "success",
-    data: {...user, password : undefined}
+    data: { token }
   });
 }
 
@@ -39,5 +42,13 @@ export async function signupController(req, res) {
 
   res.json({
     message: "success",
+  });
+}
+
+export async function profileController(req, res) {
+  let user = await User.findOne({ where: { id: req.user_id }, raw: true });
+  res.json({
+    message: "success",
+    data: {...user, password: undefined}
   });
 }
