@@ -38,7 +38,6 @@ app.use((req, res, next) => {
     }
 })
 
-
 app.use('/', authRouter)
 
 

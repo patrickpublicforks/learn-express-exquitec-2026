@@ -1,0 +1,30 @@
+[project]
+name = "py_web"
+version = "0.1.0"
+description = "my python web project"
+authors = [
+    {name = "Owor Patrick Ikongha",email = "patrick.ikongha@gmail.com"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.13"
+
+dependencies = [
+    "fastapi (>=0.129.0,<0.130.0)",
+    "uvicorn[standard] (>=0.41.0,<0.42.0)",
+    "python-dotenv (>=1.2.1,<2.0.0)",
+    "sqlmodel (>=0.0.34,<0.0.35)"
+]
+[tool.poetry]
+package-mode = false
+packages = [
+    { include = "src" },
+]
+
+[tool.poetry.scripts]
+start = "init:main"
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
