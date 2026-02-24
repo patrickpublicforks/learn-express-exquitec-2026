@@ -12,6 +12,8 @@ class Env(BaseModel):
     PORT: str =  getenv("PORT")
     PY_ENV: str = getenv("PY_ENV")
     DB_URL: str = getenv("DB_URL")
+    JWT_SECRET: str = getenv("JWT_SECRET")
+    JWT_EXPIRY: str = getenv("JWT_EXPIRY")
 
 
 
