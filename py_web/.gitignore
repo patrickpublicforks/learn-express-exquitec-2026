@@ -1,0 +1,10 @@
+**/**/node_modules/
+**/**/*.env
+**/**/__pycache__/
+stream_app.py 
+.vscode/
+**/**/*.venv
+.env
+__pycache__/
+*.db
+database.sqlite

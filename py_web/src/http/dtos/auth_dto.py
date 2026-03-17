@@ -24,3 +24,4 @@ class LoginDto(BaseModel):
 class SignupDto(LoginDto):
     age: int
     username: str
+

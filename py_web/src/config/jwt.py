@@ -4,7 +4,8 @@ from jwt import ExpiredSignatureError, InvalidTokenError
 from .env import env
 from src.utils.parse_time_string import parse_time_string
 
-def create_jwt(payload: dict) -> str:
+
+def create_jwt(payload: dict, expires_delta: datetime.timedelta | None = None) -> str:
     """
     Create a JWT token with an expiration time.
     """
@@ -13,9 +14,9 @@ def create_jwt(payload: dict) -> str:
 
     # Add expiration claim
     payload_copy = payload.copy()
-    payload_copy["iat"] = datetime.datetime.now(datetime.timezone.utc)
-    payload_copy["exp"] = datetime.datetime.now(datetime.timezone.utc) + parse_time_string(env.JWT_EXPIRY)
+    now = datetime.datetime.now(datetime.timezone.utc)
 
+    payload_copy["iat"] = now
     # Encode the token using HS256 algorithm
     token = jwt.encode(payload_copy, env.JWT_SECRET, algorithm="HS256")
     return token
