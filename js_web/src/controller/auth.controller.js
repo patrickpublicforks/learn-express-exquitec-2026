@@ -1,6 +1,7 @@
 import { generateJwtToken } from "../config/jwt.config.js";
 import { User } from "../services/index.js";
 import { comparePassword, hashPassword } from "../utils/password-hash.js";
+import RedisClient from "../config/cache.config.js";
 
 export async  function loginController(req, res) {
   const { email, password } = req.body;
@@ -46,9 +47,26 @@ export async function signupController(req, res) {
 }
 
 export async function profileController(req, res) {
-  let user = await User.findOne({ where: { id: req.user_id }, raw: true });
+  const val = await RedisClient.get(`user-${req.user_id}`)
+
+  let user = null
+  if (val == null) {
+    user = await User.findOne({ where: { id: req.user_id }, raw: true });
+    await RedisClient.set(`user-${req.user_id}`, JSON.stringify(user))
+  } else {
+    user =  JSON.parse(val)
+  }
+  
   res.json({
     message: "success",
     data: {...user, password: undefined}
+  });
+}
+
+export async function testRedis(req, res) {
+    const val = await RedisClient.get("testkey")
+    res.json({
+    message: "success",
+    data: { val }
   });
 }

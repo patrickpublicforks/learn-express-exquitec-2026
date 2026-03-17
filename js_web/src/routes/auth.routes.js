@@ -10,4 +10,6 @@ router.post("/signup", controller.signupController);
 
 router.get("/user", authMiddleware ,controller.profileController);
 
+router.post("/test", controller.testRedis);
+
 export default router
