@@ -1,6 +1,8 @@
 import os 
 from pydantic import BaseModel
+from dotenv import load_dotenv
 
+load_dotenv()
 
 def getenv(val) -> str :
     res = os.getenv(val)
